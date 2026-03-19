@@ -6,10 +6,11 @@ import { FacturacionModule } from './modules/facturacion/facturacion.module';
 import { DatabaseModule } from './database/database.module';
 import { TratamientoModule } from './modules/tratamiento/tratamiento.module';
 import { DetalleFacturacionModule } from './modules/detalle_facturacion/detalle_facturacion.module';
+import { PetsModule } from './modules/pets.modules/pets.module';
+import { medicbodymodule } from "./modules/medicbody/medicbody.module";
 
 @Module({
   imports: [
-    DatabaseModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
@@ -17,6 +18,9 @@ import { DetalleFacturacionModule } from './modules/detalle_facturacion/detalle_
     FacturacionModule,
     TratamientoModule,
     DetalleFacturacionModule,
+    DatabaseModule,
+    PetsModule,       // ← esto faltaba
+    medicbodymodule,
   ],
   controllers: [AppController],
   providers: [AppService],
