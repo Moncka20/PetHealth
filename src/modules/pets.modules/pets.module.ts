@@ -10,7 +10,7 @@ import { PetsController } from '../../controllers/pet.controller/pets.controller
 import { PetsService } from '../../services/pet.services/pets.service';
 
 // 🔹 Entidades
-import { Pet } from '../../entities/pets/pet.entity';
+import { Pet } from '../../entities/pet.entity/pet.entity';
 import { Owner } from '../../entities/owner.entity';
 import { Breed } from '../../entities/breed.entity';
 

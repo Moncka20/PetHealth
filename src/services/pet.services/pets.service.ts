@@ -2,12 +2,12 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Pet } from '../../entities/pet.entity';
+import { Pet } from '../../entities/pet.entity/pet.entity';
 import { Owner } from '../../entities/owner.entity';
 import { Breed } from '../../entities/breed.entity';
 
-import { CreatePetDto } from '../../dto/pets/create-pet.dto';
-import { UpdatePetDto } from '../../dto/pets/update-pet.dto';
+import { CreatePetDto } from '../../dto/pets/create-pet.dto/create-pet.dto';
+import { UpdatePetDto } from '../../dto/pets/update-pet.dto/update-pet.dto';
 
 @Injectable()
 export class PetsService {
