@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, ParseIntPipe } from '@nestjs/common';
-import { medicbodyservice } from '../../Service/medicbody/medicbody.service';
-import { createspecialtydto } from '../../dto/medicbody/create-specialty.dto';
+import { medicbodyservice } from '../../services/medicbody/medicbody.service';
+import { createspecialtydto } from '../../dtos/medicbody/create-specialty.dto';
 
 @Controller('medicbody')
 export class medicbodycontroller {
