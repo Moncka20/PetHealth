@@ -1,16 +1,18 @@
-import { IsString, IsEmail, IsOptional } from 'class-validator'
+import { IsString, IsEmail, IsOptional, Length } from 'class-validator'
 
 
 export class CreateClientDto {
     @IsString()
-    first_name: string;
+    @Length(2, 50)
+    firstName: string;
 
     @IsString()
     @IsOptional()
-    last_name: string;
+    lastName?: string;
 
     @IsString()
-    document_id: string;
+    @Length(5, 20)
+    documentId: string;
 
     @IsString()
     address: string;
@@ -20,10 +22,11 @@ export class CreateClientDto {
 
     @IsString()
     @IsOptional()
+    @Length(7, 15)
     phone?: string;
 
     @IsString()
     @IsOptional()
-    notes: string;
+    notes?: string;
 
 }

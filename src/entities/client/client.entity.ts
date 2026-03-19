@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
 
 
 @Entity()
@@ -7,27 +7,27 @@ export class Client {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  first_name: string;
+  @Column({ name: 'first_name'})
+  firstName: string;
 
-  @Column()
-  last_name: string;
+  @Column({ name: 'last_name', nullable: true })
+  lastName: string;
 
-  @Column({ unique: true })
-  document_id: string;
+  @Column({ name: 'document_id', unique: true })
+  documentId: string;
 
-  @Column()
+  @Column({ name: 'address' })
   address: string;
 
-  @Column({ unique: true })
+  @Column({ name: 'email', unique: true })
   email: string;
 
-  @Column()
+  @Column({ name: 'phone', nullable: true })
   phone: string;
 
-  @Column()
-  registered_at: string;
+  @CreateDateColumn({ name: 'registered_at '})
+  registeredAt: Date;
 
-  @Column({ nullable: true })
+  @Column({ name: 'notes', nullable: true })
   notes: string;
 }
