@@ -25,6 +25,9 @@ export class Client {
   @Column()
   phone: string;
 
+  @Column()
+  registered_at: string;
+
   @Column({ nullable: true })
   notes: string;
 }
