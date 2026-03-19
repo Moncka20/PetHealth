@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Agendamiento } from '../entities/agendamiento.entity';
+import { Agendamiento } from '../entities/agendamiento/agendamiento.entity';
 import { CreateAgendamientoDto } from '../dtos/agendamiento/create-agendamiento.dto';
 import { UpdateAgendamientoDto } from '../dtos/agendamiento/update-agendamiento.dto';
 
@@ -14,15 +14,15 @@ export class AgendamientoService {
 
     async create(dto: CreateAgendamientoDto): Promise<Agendamiento> {
         const conflicto = await this.agendamientoRepository.findOne({
-          where: {
-            veterinario: { id: dto.veterinario_id },
-            fecha_hora: new Date(dto.fecha_hora),
-          },
+            where: {
+                veterinario: { id: dto.veterinario_id },
+                fecha_hora: new Date(dto.fecha_hora),
+            },
         });
         if (conflicto) {
-          throw new BadRequestException(
-            `El veterinario ya tiene una cita programada para ${dto.fecha_hora}`,
-          );
+            throw new BadRequestException(
+                `El veterinario ya tiene una cita programada para ${dto.fecha_hora}`,
+            );
         }
 
         const agendamiento = this.agendamientoRepository.create({
@@ -49,17 +49,17 @@ export class AgendamientoService {
         const agendamiento = await this.findOne(id);
 
         if (dto.fecha_hora && dto.veterinario_id) {
-          const conflicto = await this.agendamientoRepository.findOne({
-            where: {
-              veterinario: { id: dto.veterinario_id },
-              fecha_hora: new Date(dto.fecha_hora),
-            },
-          });
-          if (conflicto && conflicto.id !== id) {
-            throw new BadRequestException(
-              `El veterinario ya tiene una cita programada para ${dto.fecha_hora}`,
-            );
-          }
+            const conflicto = await this.agendamientoRepository.findOne({
+                where: {
+                    veterinario: { id: dto.veterinario_id },
+                    fecha_hora: new Date(dto.fecha_hora),
+                },
+            });
+            if (conflicto && conflicto.id !== id) {
+                throw new BadRequestException(
+                    `El veterinario ya tiene una cita programada para ${dto.fecha_hora}`,
+                );
+            }
         }
 
         Object.assign(agendamiento, {
