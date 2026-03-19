@@ -28,13 +28,10 @@ export class PetsService {
 
     const { ...data } = createPetDto;
 
-    const client = await this.ClientRepository.findOneBy({ id: Client.id });
+    const client = await this.ClientRepository.findOneBy({ id: createPetDto.client_id });
     if (!client) throw new NotFoundException('Client not found');
 
-    const pet = this.petRepository.create({
-      ...data,
-      Client: client
-    });
+    const pet = this.petRepository.create({ ...data });
 
     return this.petRepository.save(pet);
   }

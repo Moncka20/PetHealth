@@ -23,7 +23,7 @@ export class Pet {
   birth_date: Date;
 
   // ✅ relación con Client
-  @ManyToOne(() => Client, (client) => client.pets, {
+  @ManyToOne(() => Client, (client) => client.id, {
     nullable: false,
     onDelete: 'CASCADE',
   })
@@ -31,7 +31,7 @@ export class Pet {
   client: Client;
 
   // ✅ relación con Taxonomy
-  @ManyToOne(() => Taxonomy, (taxonomy) => taxonomy.pets, {
+  @ManyToOne(() => Taxonomy, (taxonomy) => taxonomy.id, {
     nullable: false,
   })
   @JoinColumn({ name: 'taxonomy_id' })
