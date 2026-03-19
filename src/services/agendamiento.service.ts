@@ -77,26 +77,4 @@ export class AgendamientoService {
     const agendamiento = await this.findOne(id);
     await this.agendamientoRepository.remove(agendamiento);
   }
-
-  async calcularCostoTotal(id: number) {
-    const agendamiento = await this.findOne(id);
-
-    const costoEspecialidad = agendamiento.veterinario?.especialidad?.costo_base ?? 0;
-    const costoProcedimientos = (agendamiento.procedimientos ?? []).reduce(
-      (acc, p) => acc + Number(p.precio), 0,
-    );
-
-    return {
-      agendamiento_id: id,
-      desglose: {
-        costo_especialidad: costoEspecialidad,
-        costo_procedimientos: costoProcedimientos,
-        procedimientos: (agendamiento.procedimientos ?? []).map((p) => ({
-          nombre: p.nombre,
-          precio: p.precio,
-        })),
-      },
-      total: costoEspecialidad + costoProcedimientos,
-    };
-  }
 }

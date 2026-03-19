@@ -31,9 +31,4 @@ export class AgendamientoController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.agendamientoService.remove(id);
   }
-
-  @Get(':id/costo-total')
-  calcularCosto(@Param('id', ParseIntPipe) id: number) {
-    return this.agendamientoService.calcularCostoTotal(id);
-  }
 }

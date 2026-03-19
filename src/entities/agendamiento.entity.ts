@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { Mascota } from './mascota.entity';
-import { Veterinario } from './veterinario.entity';
-import { Procedimiento } from './procedimiento.entity';
+import { Mascota } from '../entities/mascota.entity';
+import { Veterinario } from '../entities/veterinario.entity';
+import { Procedimiento } from '../entities/procedimiento.entity';
 
 @Entity('agendamientos')
 export class Agendamiento {
