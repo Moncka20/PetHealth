@@ -64,4 +64,17 @@ export class medicbodyservice {
     Object.assign(vet, { name: data.name, phone: data.phone });
     return this.veterinarianrepo.save(vet);
   }
+
+  async delete_specialty(id: number) {
+  const specialty = await this.specialtyrepo.findOne({ where: { id } });
+  if (!specialty) throw new NotFoundException('specialty not found');
+  return this.specialtyrepo.remove(specialty);
+}
+
+async delete_veterinarian(id: number) {
+  const vet = await this.veterinarianrepo.findOne({ where: { id } });
+  if (!vet) throw new NotFoundException('veterinarian not found');
+  return this.veterinarianrepo.remove(vet);
+}
+
 }

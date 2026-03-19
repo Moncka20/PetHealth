@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Body, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, ParseIntPipe } from '@nestjs/common';
 import { medicbodyservice } from '../../Service/medicbody/medicbody.service';
 import { createspecialtydto } from '../../dto/medicbody/create-specialty.dto';
 
@@ -39,4 +39,14 @@ export class medicbodycontroller {
   update_veterinarian(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
     return this.service.update_veterinarian(id, body);
   }
+
+  @Delete('specialty/:id')
+delete_specialty(@Param('id', ParseIntPipe) id: number) {
+  return this.service.delete_specialty(id);
+}
+
+@Delete('veterinarian/:id')
+delete_veterinarian(@Param('id', ParseIntPipe) id: number) {
+  return this.service.delete_veterinarian(id);
+}
 }
