@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
+import { AgendamientoModule } from './modules/agendamiento.module';
 import { FacturacionModule } from './modules/facturacion/facturacion.module';
 import { DatabaseModule } from './database/database.module';
 import { TratamientoModule } from './modules/tratamiento/tratamiento.module';
@@ -15,11 +16,12 @@ import { medicbodymodule } from "./modules/medicbody/medicbody.module";
       isGlobal: true,
       envFilePath: '.env',
     }),
+    DatabaseModule,
+    AgendamientoModule,
     FacturacionModule,
     TratamientoModule,
     DetalleFacturacionModule,
-    DatabaseModule,
-    PetsModule,       // ← esto faltaba
+    PetsModule,     
     medicbodymodule,
   ],
   controllers: [AppController],
