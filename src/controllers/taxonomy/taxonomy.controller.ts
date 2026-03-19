@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get } from '@nestjs/common';
-import { TaxonomyService } from '../services/taxonomy.service';
-import { CreateTaxonomyDto } from '../dtos/taxonomy/create-taxonomy.dto';
+import { TaxonomyService } from '../../services/taxonomy/taxonomy.service';
+import { CreateTaxonomyDto } from '../../dtos/taxonomy/create-taxonomy.dto';
 
 @Controller('taxonomy')
 export class TaxonomyController {

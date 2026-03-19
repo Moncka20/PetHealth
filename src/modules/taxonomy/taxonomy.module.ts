@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Taxonomy } from '../entities/taxonomy/taxonomy.entity';
-import { TaxonomyService } from '../services/taxonomy.service';
-import { TaxonomyController } from '../controllers/taxonomy.controller';
+import { Taxonomy } from '../../entities/taxonomy/taxonomy.entity';
+import { TaxonomyService } from '../../services/taxonomy/taxonomy.service';
+import { TaxonomyController } from '../../controllers/taxonomy/taxonomy.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Taxonomy])],
