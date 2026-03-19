@@ -11,12 +11,12 @@ import { PetsService } from '../../services/pet.services/pets.service';
 
 // 🔹 Entidades
 import { Pet } from '../../entities/pet.entity/pet.entity';
-import { Owner } from '../../entities/owner.entity';
-import { Breed } from '../../entities/breed.entity';
+import { Client } from '../../entities/client/client.entity';
+import { Taxonomy } from '../../entities/taxonomy/taxonomy.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Pet, Owner, Breed])
+    TypeOrmModule.forFeature([Pet, Client, Taxonomy])
   ],
   controllers: [PetsController],
   providers: [PetsService],

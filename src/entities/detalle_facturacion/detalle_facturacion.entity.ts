@@ -2,12 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { facturacionEntity } from '../facturacion/facturacion.entity';
 import { TratamientoEntity } from '../tratamiento/tratamiento.entity';
+import { Agendamiento } from "../agendamiento/agendamiento.entity"
 
 @Entity('detalle_facturacion')
 export class DetalleFacturacionEntity {
@@ -17,7 +17,7 @@ export class DetalleFacturacionEntity {
   @Column({ type: 'int', nullable: true })
   idFactura?: number;
 
-    @ManyToOne(() => ConsultaEntity, (consulta) => consulta.id, {
+    @ManyToOne(() => Agendamiento, (consulta) => consulta.id, {
     nullable: false,
     onDelete: 'RESTRICT',
   })

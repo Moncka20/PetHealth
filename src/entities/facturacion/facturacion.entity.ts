@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { specialty } from '../medicbody/specialty.entity';
-import { Agendamiento } from '../agendamiento.entity';
+import { Agendamiento } from '../agendamiento/agendamiento.entity';
 
 @Entity('facturacion')
 export class facturacionEntity {
