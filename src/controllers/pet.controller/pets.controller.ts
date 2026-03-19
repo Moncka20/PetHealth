@@ -3,8 +3,8 @@ import { Controller, Get, Post, Put, Delete, Param, Body, ParseIntPipe, Validati
 
 import { PetsService } from '../../services/pet.services/pets.service';
 
-import { CreatePetDto } from '../../dto/pets/create-pet.dto/create-pet.dto';
-import { UpdatePetDto } from '../../dto/pets/update-pet.dto/update-pet.dto';
+import { CreatePetDto } from '../../dtos/pets/create-pet.dto/create-pet.dto';
+import { UpdatePetDto } from '../../dtos/pets/update-pet.dto/update-pet.dto';
 
 @Controller('pets')
 export class PetsController {

@@ -6,8 +6,8 @@ import { Pet } from '../../entities/pet.entity/pet.entity';
 import { Owner } from '../../entities/owner.entity';
 import { Breed } from '../../entities/breed.entity';
 
-import { CreatePetDto } from '../../dto/pets/create-pet.dto/create-pet.dto';
-import { UpdatePetDto } from '../../dto/pets/update-pet.dto/update-pet.dto';
+import { CreatePetDto } from '../../dtos/pets/create-pet.dto/create-pet.dto';
+import { UpdatePetDto } from '../../dtos/pets/update-pet.dto/update-pet.dto';
 
 @Injectable()
 export class PetsService {
