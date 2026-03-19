@@ -4,6 +4,7 @@ export enum TipoTratamiento {
   VACUNA = 'vacuna',
   EXAMEN = 'examen',
   LIMPIEZA = 'limpieza',
+  OPERACION = 'operacion',
 }
 
 @Entity('tratamiento')

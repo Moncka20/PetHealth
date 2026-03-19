@@ -3,30 +3,30 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 
 @Entity('facturacion')
 export class facturacionEntity {
-	@PrimaryGeneratedColumn()
-	id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-	@Column({ type: 'int' })
-	idConsulta: number;
+  @Column({ type: 'int' })
+  idConsulta: number;
 
-	@Column({ type: 'date' })
-	fechaEmision: string;
+  @Column({ type: 'date' })
+  fechaEmision: string;
 
-	@Column({ type: 'date', nullable: true })
-	fechaVencimiento?: string;
+  @Column({ type: 'date', nullable: true })
+  fechaVencimiento?: string;
 
-	@Column({ type: 'enum', enum: MetodoPago })
-	metodoPago: MetodoPago;
+  @Column({ type: 'enum', enum: MetodoPago })
+  metodoPago: MetodoPago;
 
-	@Column({ type: 'enum', enum: EstadoFactura, default: EstadoFactura.PENDIENTE })
-	estado: EstadoFactura;
+  @Column({ type: 'enum', enum: EstadoFactura, default: EstadoFactura.PENDIENTE })
+  estado: EstadoFactura;
 
-	@Column({ type: 'varchar', length: 255, nullable: true })
-	observaciones?: string;
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  observaciones?: string;
 
-	@CreateDateColumn({ type: 'timestamp' })
-	createdAt: string;
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: string;
 
-	@UpdateDateColumn({ type: 'timestamp' })
-	updatedAt: string;
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: string;
 }
