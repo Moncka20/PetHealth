@@ -3,8 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { PetsModule } from './modules/pets.modules/pets.module';
+import { DatabaseModule } from './database/database.module'; 
 import { medicbodymodule } from "./modules/medicbody/medicbody.module";
-import { DatabaseModule } from './database/database.module'; // importa el módulo
+
 
 @Module({
   imports: [
@@ -12,7 +14,8 @@ import { DatabaseModule } from './database/database.module'; // importa el módu
       isGlobal: true,
       envFilePath: '.env',
     }),
-    DatabaseModule,        // ← esto faltaba
+    DatabaseModule,
+    PetsModule,       // ← esto faltaba
     medicbodymodule,
   ],
   controllers: [AppController],
