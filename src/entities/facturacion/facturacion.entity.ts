@@ -1,13 +1,30 @@
 import { EstadoFactura, MetodoPago } from '../../dtos/facturacion/create-facturacion.dto';
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { EspecialityEntity } from '../especiality/especiality.entity';
 
 @Entity('facturacion')
 export class facturacionEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'int' })
+    @ManyToOne(() => ConsultaEntity, (consulta) => consulta.id, {
+    nullable: false,
+    onDelete: 'RESTRICT',
+  })
   idConsulta: number;
+
+    @ManyToOne(() => EspecialityEntity, (especiality) => especiality.id, {
+    nullable: false,
+    onDelete: 'RESTRICT',
+  })
+  idEspecialidad?: number;
 
   @Column({ type: 'date' })
   fechaEmision: string;

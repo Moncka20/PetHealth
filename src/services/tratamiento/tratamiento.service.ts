@@ -1,44 +1,16 @@
-import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateTratamientoDto } from '../dtos/tratamiento/create-tratamiento.dto';
-import { UpdateTratamientoDto } from '../dtos/tratamiento/update-tratamiento.dto';
-import { TipoTratamiento, TratamientoEntity } from '../entities/tratamiento/tratamiento.entity';
+import { CreateTratamientoDto } from '../../dtos/tratamiento/create-tratamiento.dto';
+import { UpdateTratamientoDto } from '../../dtos/tratamiento/update-tratamiento.dto';
+import { TratamientoEntity } from '../../entities/tratamiento/tratamiento.entity';
 
 @Injectable()
-export class TratamientoService implements OnModuleInit {
+export class TratamientoService {
   constructor(
     @InjectRepository(TratamientoEntity)
     private tratamientoRepository: Repository<TratamientoEntity>,
   ) {}
-
-  async onModuleInit(): Promise<void> {
-    const total = await this.tratamientoRepository.count();
-
-    if (total > 0) {
-      return;
-    }
-
-    const catalogoBase = [
-      {
-        nombre: 'Vacuna Triple Felina',
-        tipo: TipoTratamiento.VACUNA,
-        precio: 45,
-      },
-      {
-        nombre: 'Examen Hemograma Completo',
-        tipo: TipoTratamiento.EXAMEN,
-        precio: 35,
-      },
-      {
-        nombre: 'Limpieza Dental Basica',
-        tipo: TipoTratamiento.LIMPIEZA,
-        precio: 70,
-      },
-    ];
-
-    await this.tratamientoRepository.save(catalogoBase);
-  }
 
   async create(createTratamientoDto: CreateTratamientoDto): Promise<TratamientoEntity> {
     const tratamiento = this.tratamientoRepository.create(createTratamientoDto);

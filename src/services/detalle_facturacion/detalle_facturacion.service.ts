@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateDetalleFacturaDto } from '../dtos/detalle_facturacion/create-detalle_facturacion.dto';
-import { UpdateDetalleFacturaDto } from '../dtos/detalle_facturacion/update-detalle_facturacion.dto';
-import { DetalleFacturacionEntity } from '../entities/detalle_facturacion/detalle_facturacion.entity';
-import { TratamientoEntity } from '../entities/tratamiento/tratamiento.entity';
+import { CreateDetalleFacturaDto } from '../../dtos/detalle_facturacion/create-detalle_facturacion.dto';
+import { UpdateDetalleFacturaDto } from '../../dtos/detalle_facturacion/update-detalle_facturacion.dto';
+import { DetalleFacturacionEntity } from '../../entities/detalle_facturacion/detalle_facturacion.entity';
+import { TratamientoEntity } from '../../entities/tratamiento/tratamiento.entity';
 
 @Injectable()
 export class DetalleFacturacionService {

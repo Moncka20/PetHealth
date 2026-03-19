@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { DetalleFacturacionEntity } from '../detalle_facturacion/detalle_facturacion.entity';
 
 export enum TipoTratamiento {
   VACUNA = 'vacuna',

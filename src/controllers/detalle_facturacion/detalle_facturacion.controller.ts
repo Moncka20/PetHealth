@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { CreateDetalleFacturaDto } from '../dtos/detalle_facturacion/create-detalle_facturacion.dto';
-import { UpdateDetalleFacturaDto } from '../dtos/detalle_facturacion/update-detalle_facturacion.dto';
-import { DetalleFacturacionService } from '../services/detalle_facturacion.service';
+import { CreateDetalleFacturaDto } from '../../dtos/detalle_facturacion/create-detalle_facturacion.dto';
+import { UpdateDetalleFacturaDto } from '../../dtos/detalle_facturacion/update-detalle_facturacion.dto';
+import { DetalleFacturacionService } from '../../services/detalle_facturacion/detalle_facturacion.service';
 
 @Controller('detalle-facturacion')
 export class DetalleFacturacionController {

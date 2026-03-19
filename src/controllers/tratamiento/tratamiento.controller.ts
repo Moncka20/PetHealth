@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { CreateTratamientoDto } from '../dtos/tratamiento/create-tratamiento.dto';
-import { UpdateTratamientoDto } from '../dtos/tratamiento/update-tratamiento.dto';
-import { TratamientoService } from '../services/tratamiento.service';
+import { CreateTratamientoDto } from '../../dtos/tratamiento/create-tratamiento.dto';
+import { UpdateTratamientoDto } from '../../dtos/tratamiento/update-tratamiento.dto';
+import { TratamientoService } from '../../services/tratamiento/tratamiento.service';
 
 @Controller('tratamientos')
 export class TratamientoController {
