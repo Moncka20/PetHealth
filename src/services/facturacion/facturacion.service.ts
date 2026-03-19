@@ -4,7 +4,7 @@ import { UpdateFacturacionDto } from '../../dtos/facturacion/update-facturacion.
 import { facturacionEntity } from '../../entities/facturacion/facturacion.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EspecialityEntity } from '../../entities/especiality/especiality.entity';
+import { specialty } from '../../entities/medicbody/specialty.entity';
 import { DetalleFacturacionEntity } from '../../entities/detalle_facturacion/detalle_facturacion.entity';
 
 @Injectable()
@@ -12,8 +12,8 @@ export class FacturacionService {
   constructor(
     @InjectRepository(facturacionEntity)
     private facturacionRepository: Repository<facturacionEntity>,
-    @InjectRepository(EspecialityEntity)
-    private especialityRepository: Repository<EspecialityEntity>,
+    @InjectRepository(specialty)
+    private especialityRepository: Repository<specialty>,
     @InjectRepository(DetalleFacturacionEntity)
     private detalleFacturacionRepository: Repository<DetalleFacturacionEntity>,
   ) {}
@@ -63,7 +63,7 @@ export class FacturacionService {
       where: { idConsulta },
     });
 
-    const costoBaseEspecialidad = Number(especialidad.costoBase);
+    const costoBaseEspecialidad = Number(especialidad.base_cost);
     const totalTratamientos = detalles.reduce(
       (acumulado, detalle) => acumulado + Number(detalle.subtotal),
       0,
