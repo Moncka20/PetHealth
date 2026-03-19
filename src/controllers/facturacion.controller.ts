@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { FacturacionService } from './facturacion.service';
+import { FacturacionService } from '../services/facturacion.service';
 import { CreateFacturacionDto } from '../dtos/facturacion/create-facturacion.dto';
 import { UpdateFacturacionDto } from '../dtos/facturacion/update-facturacion.dto';
 
@@ -15,6 +15,14 @@ export class FacturacionController {
   @Get()
   findAll() {
     return this.facturacionService.findAll();
+  }
+
+  @Get('costo-total/:idConsulta/:idEspecialidad')
+  calcularCostoTotalCita(
+    @Param('idConsulta') idConsulta: string,
+    @Param('idEspecialidad') idEspecialidad: string,
+  ) {
+    return this.facturacionService.calcularCostoTotalCita(+idConsulta, +idEspecialidad);
   }
 
   @Get(':id')
