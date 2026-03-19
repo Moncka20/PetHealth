@@ -76,7 +76,7 @@ async remove(id: number) {
       throw new Error('Una taxonomía no puede ser su propio padre');
     }
 
-    parent = await this.repo.findOneBy({ id: dto.parentId });
+    parent = (await this.repo.findOneBy({ id: dto.parentId })) ?? undefined;
 
     if (!parent) throw new NotFoundException(`Parent con id ${dto.parentId} no existe`);
   }
