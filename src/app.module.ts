@@ -1,15 +1,19 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseModule } from './database/database.module';
+import { AgendamientoModule } from './modules/agendamiento.module';
 
 @Module({
-  imports: [    
-    TypeOrmModule.forFeature([]),
+  imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',}),],
+      envFilePath: '.env',
+    }),
+    DatabaseModule,
+    AgendamientoModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
