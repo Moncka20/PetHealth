@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFacturacionDto } from '../../dtos/facturacion/create-facturacion.dto';
 import { UpdateFacturacionDto } from '../../dtos/facturacion/update-facturacion.dto';
 import { facturacionEntity } from '../../entities/facturacion/facturacion.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { specialty } from '../../entities/medicbody/specialty.entity';
 import { DetalleFacturacionEntity } from '../../entities/detalle_facturacion/detalle_facturacion.entity';
@@ -59,9 +59,19 @@ export class FacturacionService {
       throw new NotFoundException(`No existe una especialidad con id ${idEspecialidad}`);
     }
 
-    const detalles = await this.detalleFacturacionRepository.find({
+    const facturas = await this.facturacionRepository.find({
       where: { idConsulta },
+      select: ['id'],
     });
+
+    const idsFacturas = facturas.map((factura) => factura.id);
+
+    const detalles =
+      idsFacturas.length > 0
+        ? await this.detalleFacturacionRepository.find({
+            where: { idFactura: In(idsFacturas) },
+          })
+        : [];
 
     const costoBaseEspecialidad = Number(especialidad.base_cost);
     const totalTratamientos = detalles.reduce(

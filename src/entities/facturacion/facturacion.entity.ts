@@ -7,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { specialty } from '../medicbody/specialty.entity';
 import { Agendamiento } from '../agendamiento/agendamiento.entity';
 
 @Entity('facturacion')
@@ -15,17 +14,11 @@ export class facturacionEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-    @ManyToOne(() => Agendamiento, (Agendamiento) => Agendamiento.id, {
+  @ManyToOne(() => Agendamiento, (Agendamiento) => Agendamiento.id, {
     nullable: false,
     onDelete: 'RESTRICT',
   })
   idConsulta: number;
-
-    @ManyToOne(() => specialty, (especiality) => especiality.id, {
-    nullable: false,
-    onDelete: 'RESTRICT',
-  })
-  idEspecialidad?: number;
 
   @Column({ type: 'date' })
   fechaEmision: string;

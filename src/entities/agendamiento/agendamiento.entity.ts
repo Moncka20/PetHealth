@@ -1,7 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Pet } from '../pet.entity/pet.entity';
 import { veterinarian } from '../medicbody/veterinarian.entity';
-import { TratamientoEntity } from '../tratamiento/tratamiento.entity';
 
 @Entity('agendamientos')
 export class Agendamiento {
@@ -22,6 +21,4 @@ export class Agendamiento {
   @JoinColumn({ name: 'veterinario_id' })
   veterinario: veterinarian;
 
-  @OneToMany(() => TratamientoEntity, (p) => p.agendamiento, { eager: true })
-  procedimientos: TratamientoEntity[];
 }

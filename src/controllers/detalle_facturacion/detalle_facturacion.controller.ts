@@ -17,6 +17,11 @@ export class DetalleFacturacionController {
     return this.detalleFacturacionService.findAll();
   }
 
+  @Get('costo-total/:idConsulta')
+  calcularCostoTotalCita(@Param('idConsulta') idConsulta: string) {
+    return this.detalleFacturacionService.calcularCostoTotalCita(+idConsulta);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.detalleFacturacionService.findOne(+id);
