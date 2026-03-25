@@ -6,9 +6,16 @@ import { facturacionEntity } from '../../entities/facturacion/facturacion.entity
 import { TratamientoEntity } from '../../entities/tratamiento/tratamiento.entity';
 import { DetalleFacturacionService } from '../../services/detalle_facturacion/detalle_facturacion.service';
 
+import { Agendamiento } from '../../entities/agendamiento/agendamiento.entity';
+
 @Module({
   imports: [
-    TypeOrmModule.forFeature([DetalleFacturacionEntity, facturacionEntity, TratamientoEntity]),
+    TypeOrmModule.forFeature([
+      DetalleFacturacionEntity,
+      facturacionEntity,
+      TratamientoEntity,
+      Agendamiento,
+    ]),
   ],
   controllers: [DetalleFacturacionController],
   providers: [DetalleFacturacionService],

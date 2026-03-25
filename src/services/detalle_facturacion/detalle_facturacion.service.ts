@@ -6,6 +6,7 @@ import { UpdateDetalleFacturaDto } from '../../dtos/detalle_facturacion/update-d
 import { DetalleFacturacionEntity } from '../../entities/detalle_facturacion/detalle_facturacion.entity';
 import { facturacionEntity } from '../../entities/facturacion/facturacion.entity';
 import { TratamientoEntity } from '../../entities/tratamiento/tratamiento.entity';
+import { Agendamiento } from '../../entities/agendamiento/agendamiento.entity';
 
 @Injectable()
 export class DetalleFacturacionService {
@@ -16,6 +17,8 @@ export class DetalleFacturacionService {
     private facturacionRepository: Repository<facturacionEntity>,
     @InjectRepository(TratamientoEntity)
     private tratamientoRepository: Repository<TratamientoEntity>,
+    @InjectRepository(Agendamiento)
+    private agendamientoRepository: Repository<Agendamiento>,
   ) {}
 
   async create(createDetalleFacturaDto: CreateDetalleFacturaDto): Promise<DetalleFacturacionEntity> {
@@ -109,5 +112,55 @@ export class DetalleFacturacionService {
 
     await this.detalleFacturacionRepository.delete(id);
     return detalle;
+  }
+
+  async calcularCostoTotalCita(idConsulta: number) {
+    // 1. Obtener la consulta y la especialidad del veterinario (base_cost)
+    const consulta = await this.agendamientoRepository.findOne({
+      where: { id: idConsulta },
+      relations: ['veterinario', 'veterinario.specialty'],
+    });
+
+    if (!consulta) {
+      throw new NotFoundException(`No existe una consulta con id ${idConsulta}`);
+    }
+
+    const costoBaseEspecialidad = Number(consulta.veterinario.specialty.base_cost);
+
+    // 2. Obtener las facturas asociadas a esta consulta
+    const facturas = await this.facturacionRepository.find({
+      where: { idConsulta },
+      select: ['id'],
+    });
+
+    // Si no hay facturas, devolvemos solo el costo base
+    if (!facturas || facturas.length === 0) {
+      return {
+        idConsulta,
+        costoBaseEspecialidad,
+        totalTratamientos: 0,
+        costoTotalCita: costoBaseEspecialidad,
+      };
+    }
+
+    // 3. Obtener los detalles (tratamientos) de esas facturas y sumar subtotales
+    const idsFacturas = facturas.map((f) => f.id);
+    // Necesitamos importar `In` de typeorm para esto... Wait, I need to check if 'In' is imported.
+    const detalles = await this.detalleFacturacionRepository
+      .createQueryBuilder('detalle')
+      .where('detalle.idFactura IN (:...ids)', { ids: idsFacturas })
+      .getMany();
+
+    const totalTratamientos = detalles.reduce(
+      (acumulado, detalle) => acumulado + Number(detalle.subtotal),
+      0,
+    );
+
+    return {
+      idConsulta,
+      costoBaseEspecialidad,
+      totalTratamientos,
+      costoTotalCita: costoBaseEspecialidad + totalTratamientos,
+    };
   }
 }
