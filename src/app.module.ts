@@ -9,6 +9,8 @@ import { TratamientoModule } from './modules/tratamiento/tratamiento.module';
 import { DetalleFacturacionModule } from './modules/detalle_facturacion/detalle_facturacion.module';
 import { PetsModule } from './modules/pets.modules/pets.module';
 import { medicbodymodule } from "./modules/medicbody/medicbody.module";
+import { ClientModule } from './modules/client/client.module';
+import { TaxonomyModule } from './modules/taxonomy/taxonomy.module';
 
 @Module({
   imports: [
@@ -21,8 +23,10 @@ import { medicbodymodule } from "./modules/medicbody/medicbody.module";
     FacturacionModule,
     TratamientoModule,
     DetalleFacturacionModule,
-    PetsModule,     
+    PetsModule,
     medicbodymodule,
+    ClientModule,
+    TaxonomyModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -31,16 +31,23 @@ export class PetsService {
     const client = await this.ClientRepository.findOneBy({ id: createPetDto.client_id });
     if (!client) throw new NotFoundException('Client not found');
 
-    const pet = this.petRepository.create({ ...data });
+    const taxonomy = await this.taxonomyRepository.findOneBy({ id: createPetDto.taxonomy_id });
+    if (!taxonomy) throw new NotFoundException('Taxonomy not found');
 
-    return this.petRepository.save(pet);
-  }
+    const pet = this.petRepository.create({
+      ...data,
+      client,
+      taxonomy,
+    });
+
+  return this.petRepository.save(pet);
+}
 
   // 🔍 FIND ALL
   async findAll() {
 
     const pets = await this.petRepository.find({
-      relations: ['Client', 'client'],
+      relations: ['client', 'taxonomy'],
     });
 
     return pets.map(pet => ({
@@ -54,7 +61,7 @@ export class PetsService {
 
     const pet = await this.petRepository.findOne({
       where: { id },
-      relations: ['Client', 'client'],
+      relations: ['client', 'taxonomy'],
     });
 
     if (!pet) {
