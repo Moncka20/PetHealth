@@ -1,8 +1,8 @@
-import { Column, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { Entity, Column, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity()
 export class Taxonomy {
-
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
@@ -11,11 +11,9 @@ export class Taxonomy {
     @Column({ nullable: true })
     description: string;
 
-    // Si es padre
-    @ManyToOne( () => Taxonomy, (taxonomy) => taxonomy.children, { nullable: true })
+    @ManyToOne(() => Taxonomy, (taxonomy) => taxonomy.children, { nullable: true })
     parent: Taxonomy;
 
-    // Si es hijo
-    @OneToMany( () => Taxonomy, (taxonomy) => taxonomy.parent )
-    children: Taxonomy;
+    @OneToMany(() => Taxonomy, (taxonomy) => taxonomy.parent)
+    children: Taxonomy[];  // ← array, no Taxonomy solo
 }

@@ -13,9 +13,9 @@ export class CreatePetDto {
 
   @Type(() => Number)
   @IsInt()
-  owner_id: number;
+  client_id: number;
 
   @Type(() => Number)
   @IsInt()
-  breed_id: number;
+  taxonomy_id: number;
 }

@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 
-import { Owner } from './owner.entity';
-import { Breed } from './breed.entity';
+import { Client } from '../client/client.entity';
+import { Taxonomy } from '../taxonomy/taxonomy.entity';
 
 @Entity('pets')
 export class Pet {
@@ -22,18 +22,18 @@ export class Pet {
   })
   birth_date: Date;
 
-  // relación con owner
-  @ManyToOne(() => Owner, (owner) => owner.pets, {
+  // ✅ relación con Client
+  @ManyToOne(() => Client, (client) => client.id, {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'owner_id' })
-  owner: Owner;
+  @JoinColumn({ name: 'client_id' })
+  client: Client;
 
-  // relación con breed
-  @ManyToOne(() => Breed, (breed) => breed.pets, {
+  // ✅ relación con Taxonomy
+  @ManyToOne(() => Taxonomy, (taxonomy) => taxonomy.id, {
     nullable: false,
   })
-  @JoinColumn({ name: 'breed_id' })
-  breed: Breed;
+  @JoinColumn({ name: 'taxonomy_id' })
+  taxonomy: Taxonomy;
 }

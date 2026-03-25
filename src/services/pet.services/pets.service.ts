@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Pet } from '../../entities/pet.entity/pet.entity';
-import { Owner } from '../../entities/owner.entity';
-import { Breed } from '../../entities/breed.entity';
+import { Client } from '../../entities/client/client.entity';
+import { Taxonomy } from '../../entities/taxonomy/taxonomy.entity';
 
 import { CreatePetDto } from '../../dtos/pets/create-pet.dto/create-pet.dto';
 import { UpdatePetDto } from '../../dtos/pets/update-pet.dto/update-pet.dto';
@@ -16,42 +16,38 @@ export class PetsService {
     @InjectRepository(Pet)
     private readonly petRepository: Repository<Pet>,
 
-    @InjectRepository(Owner)
-    private readonly ownerRepository: Repository<Owner>,
+    @InjectRepository(Client)
+    private readonly ClientRepository: Repository<Client>,
 
-    @InjectRepository(Breed)
-    private readonly breedRepository: Repository<Breed>,
+    @InjectRepository(Taxonomy)
+    private readonly taxonomyRepository: Repository<Taxonomy>,
   ) {}
 
   // 🔥 CREATE
   async create(createPetDto: CreatePetDto) {
 
-    const { owner_id, breed_id, ...data } = createPetDto;
+    const { ...data } = createPetDto;
 
-    const owner = await this.ownerRepository.findOneBy({ id: owner_id });
-    if (!owner) {
-      throw new NotFoundException('owner not found');
-    }
+    const client = await this.ClientRepository.findOneBy({ id: createPetDto.client_id });
+    if (!client) throw new NotFoundException('Client not found');
 
-    const breed = await this.breedRepository.findOneBy({ id: breed_id });
-    if (!breed) {
-      throw new NotFoundException('breed not found');
-    }
+    const taxonomy = await this.taxonomyRepository.findOneBy({ id: createPetDto.taxonomy_id });
+    if (!taxonomy) throw new NotFoundException('Taxonomy not found');
 
     const pet = this.petRepository.create({
       ...data,
-      owner,
-      breed,
+      client,
+      taxonomy,
     });
 
-    return this.petRepository.save(pet);
-  }
+  return this.petRepository.save(pet);
+}
 
   // 🔍 FIND ALL
   async findAll() {
 
     const pets = await this.petRepository.find({
-      relations: ['owner', 'breed'],
+      relations: ['client', 'taxonomy'],
     });
 
     return pets.map(pet => ({
@@ -65,7 +61,7 @@ export class PetsService {
 
     const pet = await this.petRepository.findOne({
       where: { id },
-      relations: ['owner', 'breed'],
+      relations: ['client', 'taxonomy'],
     });
 
     if (!pet) {
