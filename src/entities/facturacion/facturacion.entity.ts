@@ -7,24 +7,18 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { EspecialityEntity } from '../especiality/especiality.entity';
+import { Agendamiento } from '../agendamiento/agendamiento.entity';
 
 @Entity('facturacion')
 export class facturacionEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-    @ManyToOne(() => ConsultaEntity, (consulta) => consulta.id, {
+  @ManyToOne(() => Agendamiento, (Agendamiento) => Agendamiento.id, {
     nullable: false,
     onDelete: 'RESTRICT',
   })
   idConsulta: number;
-
-    @ManyToOne(() => EspecialityEntity, (especiality) => especiality.id, {
-    nullable: false,
-    onDelete: 'RESTRICT',
-  })
-  idEspecialidad?: number;
 
   @Column({ type: 'date' })
   fechaEmision: string;

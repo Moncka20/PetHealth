@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateDetalleFacturaDto } from '../../dtos/detalle_facturacion/create-detalle_facturacion.dto';
 import { UpdateDetalleFacturaDto } from '../../dtos/detalle_facturacion/update-detalle_facturacion.dto';
 import { DetalleFacturacionEntity } from '../../entities/detalle_facturacion/detalle_facturacion.entity';
+import { facturacionEntity } from '../../entities/facturacion/facturacion.entity';
 import { TratamientoEntity } from '../../entities/tratamiento/tratamiento.entity';
 
 @Injectable()
@@ -11,11 +12,23 @@ export class DetalleFacturacionService {
   constructor(
     @InjectRepository(DetalleFacturacionEntity)
     private detalleFacturacionRepository: Repository<DetalleFacturacionEntity>,
+    @InjectRepository(facturacionEntity)
+    private facturacionRepository: Repository<facturacionEntity>,
     @InjectRepository(TratamientoEntity)
     private tratamientoRepository: Repository<TratamientoEntity>,
   ) {}
 
   async create(createDetalleFacturaDto: CreateDetalleFacturaDto): Promise<DetalleFacturacionEntity> {
+    const factura = await this.facturacionRepository.findOne({
+      where: { id: createDetalleFacturaDto.idFactura },
+    });
+
+    if (!factura) {
+      throw new NotFoundException(
+        `No existe una factura con id ${createDetalleFacturaDto.idFactura}`,
+      );
+    }
+
     const tratamiento = await this.tratamientoRepository.findOne({
       where: { id: createDetalleFacturaDto.idTratamiento },
     });
@@ -30,7 +43,7 @@ export class DetalleFacturacionService {
     const subtotal = Number(createDetalleFacturaDto.cantidad) * precioUnitario;
 
     const detalle = this.detalleFacturacionRepository.create({
-      idConsulta: createDetalleFacturaDto.idConsulta,
+      idFactura: createDetalleFacturaDto.idFactura,
       idTratamiento: createDetalleFacturaDto.idTratamiento,
       concepto: createDetalleFacturaDto.concepto,
       cantidad: createDetalleFacturaDto.cantidad,

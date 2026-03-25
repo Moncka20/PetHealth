@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -14,21 +13,16 @@ export class DetalleFacturacionEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'int', nullable: true })
-  idFactura?: number;
-
-    @ManyToOne(() => ConsultaEntity, (consulta) => consulta.id, {
+  @ManyToOne(() => facturacionEntity, (factura) => factura.id, {
     nullable: false,
     onDelete: 'RESTRICT',
   })
-  @Column({ type: 'int' })
-  idConsulta: number;
+  idFactura: number;
 
   @ManyToOne(() => TratamientoEntity, (tratamiento) => tratamiento.id, {
     nullable: false,
     onDelete: 'RESTRICT',
   })
-  @Column({ type: 'int' })
   idTratamiento: number;
 
   @Column({ type: 'varchar', length: 200 })
@@ -42,10 +36,6 @@ export class DetalleFacturacionEntity {
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   subtotal: number;
-
-  factura?: facturacionEntity;
-
-  tratamiento: TratamientoEntity;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: string;

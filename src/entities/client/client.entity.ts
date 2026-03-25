@@ -25,7 +25,7 @@ export class Client {
   @Column({ name: 'phone', nullable: true })
   phone: string;
 
-  @CreateDateColumn({ name: 'registered_at '})
+  @CreateDateColumn({ name: 'registered_at' })
   registeredAt: Date;
 
   @Column({ name: 'notes', nullable: true })

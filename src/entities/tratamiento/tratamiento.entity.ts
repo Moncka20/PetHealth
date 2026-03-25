@@ -1,6 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { DetalleFacturacionEntity } from '../detalle_facturacion/detalle_facturacion.entity';
-
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export enum TipoTratamiento {
   VACUNA = 'vacuna',
   EXAMEN = 'examen',
@@ -21,4 +19,5 @@ export class TratamientoEntity {
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   precio: number;
+
 }

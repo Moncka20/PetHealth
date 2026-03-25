@@ -10,7 +10,7 @@ import {
 export class CreateDetalleFacturaDto {
   @IsInt()
   @IsNotEmpty()
-  idConsulta: number;
+  idFactura: number;
 
   @IsInt()
   @IsNotEmpty()
